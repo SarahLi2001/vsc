@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from "react";
+import io from "socket.io-client";
 
-import { Chat, Message } from '../Types';
-import ChatPanel from '../ChatPanel/ChatPanel';
-import TerminalComponent from '../Terminal/Terminal';
+import { Chat, Message } from "../Types";
+import ChatPanel from "../ChatPanel/ChatPanel";
+import TerminalComponent from "../Terminal/Terminal";
 
 const Page: React.FC<{}> = ({}) => {
-  const [username, setUsername] = useState<string>('anonymous');
+  const socket = io("http://localhost:4000");
+
+  const [username, setUsername] = useState<string>("anonymous");
   const [chats, setChats] = useState<Chat[]>([]);
   const [activeChat, setActiveChat] = useState<number>(-1); // index of active chat in chats array
+
+  useEffect(() => {
+    socket.emit("test", "HELLO WORLD");
+  }, []);
 
   const createChat = (chatName: string) => {
     const tempChats = [...chats];
@@ -53,7 +60,7 @@ const Page: React.FC<{}> = ({}) => {
   };
 
   return (
-    <div className='chat-panel'>
+    <div className="chat-panel">
       <></>
       <ChatPanel
         chats={chats}
