@@ -1,9 +1,10 @@
 import React from 'react';
+
 import { Chat } from '../Types';
 
 type ChatPanelProps = {
   chats: Chat[];
-  activeChat: number | null;
+  activeChat: number;
   onChangeActiveChat: (newActiveChat: number) => void;
 };
 
@@ -16,14 +17,14 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
     <div className='chat-panel'>
       <div>CHATS</div>
       {chats.map((chat, index) => {
-        // render tabs
+        // TODO: render as tabs
         return (
           <div key={index} onClick={() => onChangeActiveChat(index)}>
             {chat.name}
           </div>
         );
       })}
-      {activeChat !== null ? (
+      {chats.length > 0 && activeChat >= 0 ? (
         <ActiveChat chat={chats[activeChat]} />
       ) : (
         <NoActiveChat />
@@ -41,7 +42,7 @@ const ActiveChat: React.FC<ActiveChatProps> = ({ chat }) => {
     <div className='active-chat'>
       <div>ACTIVE CHAT: {chat.name}</div>
       {chat.messages.map((message, index) => {
-        return <div key={index}>{message}</div>;
+        return <div key={index}>{message.text}</div>;
       })}
     </div>
   );

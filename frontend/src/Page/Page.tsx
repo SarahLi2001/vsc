@@ -1,29 +1,13 @@
 import React, { useState } from 'react';
+
+import { Chat, Message } from '../Types';
 import ChatPanel from '../ChatPanel/ChatPanel';
-import Terminal from '../Terminal/Terminal';
-import { Chat } from '../Types';
+import TerminalComponent from '../Terminal/Terminal';
 
 const Page: React.FC<{}> = ({}) => {
-  const [username, setUserName] = useState<string>('anonymous');
+  const [username, setUsername] = useState<string>('anonymous');
   const [chats, setChats] = useState<Chat[]>([]);
-  const [activeChat, setActiveChat] = useState<number | null>(null); // index of active chat in chats array
-
-  const handleCommandSent = (command: string) => {
-    const cmd = command.split(' ')[0];
-    const content = command.substring(cmd.length + 1);
-
-    if (cmd === 'create-chat' && !(content.indexOf(' ') >= 0)) {
-      createChat(content);
-    } else if (cmd === 'join-chat' && !(content.indexOf(' ') >= 0)) {
-      // fetch remote chat and add to chats
-    } else if (cmd === 'msg') {
-      sendMessage(content);
-    } else if (cmd === 'change-username' && !(content.indexOf(' ') >= 0)) {
-      setUserName(content);
-    } else {
-      console.log('invalid command');
-    }
-  };
+  const [activeChat, setActiveChat] = useState<number>(-1); // index of active chat in chats array
 
   const createChat = (chatName: string) => {
     const tempChats = [...chats];
@@ -36,14 +20,30 @@ const Page: React.FC<{}> = ({}) => {
     setActiveChat(tempChats.indexOf(newChat));
   };
 
-  const sendMessage = (message: string) => {
-    if (activeChat !== null) {
-      const tempChats = [...chats];
-      tempChats[activeChat].messages.push({
+  const applyMessage = (chatIndex: number, message: Message) => {
+    const tempChats = [...chats];
+    tempChats[chatIndex].messages.push(message);
+    setChats(tempChats);
+  };
+
+  const sendMessage = (messageText: string) => {
+    if (activeChat >= 0) {
+      const newMessage = {
         username: username,
-        text: message,
-      });
-      setChats(tempChats);
+        text: messageText,
+      };
+      applyMessage(activeChat, newMessage);
+      // TODO: send to server
+    }
+  };
+
+  const receiveMessage = (chatName: string, message: Message) => {
+    // TODO: call when message received from server
+    const chatIndex = chats.findIndex((chat) => {
+      return chat.name === chatName;
+    });
+    if (chatIndex >= 0) {
+      applyMessage(chatIndex, message);
     }
   };
 
@@ -56,10 +56,15 @@ const Page: React.FC<{}> = ({}) => {
       <></>
       <ChatPanel
         chats={chats}
-        activeChat={activeChat || null}
+        activeChat={activeChat}
         onChangeActiveChat={handleChangeActiveChat}
       />
-      <Terminal onCommandSend={handleCommandSent} />
+      <TerminalComponent
+        username={username}
+        onChatOpen={createChat}
+        onMessageSend={sendMessage}
+        onUsernameChange={setUsername}
+      />
     </div>
   );
 };
