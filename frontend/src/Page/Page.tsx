@@ -34,6 +34,11 @@ const Page: React.FC<{}> = ({}) => {
       };
       applyMessage(activeChat, newMessage);
       // TODO: send to server
+      const messageToServer = {
+        chat: chats[activeChat].name,
+        username: username,
+        message: messageText,
+      };
     }
   };
 
@@ -47,17 +52,13 @@ const Page: React.FC<{}> = ({}) => {
     }
   };
 
-  const handleChangeActiveChat = (newActiveChat: number) => {
-    setActiveChat(newActiveChat);
-  };
-
   return (
     <div className='chat-panel'>
       <></>
       <ChatPanel
         chats={chats}
         activeChat={activeChat}
-        onChangeActiveChat={handleChangeActiveChat}
+        onChangeActiveChat={setActiveChat}
       />
       <TerminalComponent
         username={username}
