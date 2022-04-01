@@ -14,7 +14,7 @@
     "csstype": "^3.0.11",
     "react": "^18.0.0",
     "react-console-emulator": "^5.0.1",
-    "react-dom": "^18.0.0",
+    "react-dom": "npm:@devtails/react-dom@18.2.1",
     "react-scripts": "5.0.0",
     "socket.io-client": "^4.4.1",
     "talkjs": "^0.15.2",
