@@ -1,0 +1,13 @@
+html,
+main,
+body {
+  height: 100%;
+}
+
+.app {
+  display: block;
+  width: 100%;
+  height: 100vh; /* not sure how to get this to work as 100% instead of vh */
+  background-color: var(--purple);
+  color: white;
+}

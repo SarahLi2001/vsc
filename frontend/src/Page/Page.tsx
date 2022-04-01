@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
+import './Page.css';
 
 import { Chat, Message } from '../Types';
 import ChatPanel from '../ChatPanel/ChatPanel';
@@ -84,7 +85,7 @@ const Page: React.FC = () => {
   };
 
   return (
-    <div className='chat-panel'>
+    <div className='page'>
       <ChatPanel
         chats={chats}
         activeChat={activeChat}
