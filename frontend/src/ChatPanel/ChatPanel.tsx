@@ -8,6 +8,8 @@ import incognitoOff from "../Icons/incognito toggle OFF.svg";
 
 import ellipsis from "../Icons/ellipsis-regular (1) 1.svg";
 import add from "../Icons/add.svg";
+import JS from "../Icons/JS.svg";
+
 import Button from 'react-bootstrap'
 
 import 'react-tabs/style/react-tabs.css';
@@ -46,14 +48,14 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
   const [incognitoMode, setIncognitoMode] = useState(false)
   return (
     <div className='chat-panel'>
-      <Tabs id='controlled-tabs' selectedTabClassName='bg-white'>
+      <Tabs className='tabs-panel' id='controlled-tabs' selectedTabClassName="current-chat" >
         <TabList>
           <div className='tabs-container'>
-            <div>
+            <div className='chat-tabs'>
             {chats.map((chat, index) => {
             // TODO: render as tabs
             return (
-                <Tab key={index} onClick={() => onChangeActiveChat(index)}>{chat.name}</Tab>
+                <Tab key={index} onClick={() => onChangeActiveChat(index)}><img style= {{ width: 15, marginRight: 5}}className='tab-image' src={JS}/>{chat.name}</Tab>
             );
           }) }
             </div>
@@ -61,9 +63,9 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
              {chats.length > 0 &&
             <Tab>
               <div className='tab-buttons'>
-                <button><img style={{width: 25}} src={add}/></button>
-                <button onClick={() => setIncognitoMode(!incognitoMode)}><img style={{width: 25}} src={incognitoMode? incognitoOff: incognitoOn}/></button>
-                <button><img style={{width: 25}} src={ellipsis}/></button>
+                <button><img style={{width: 20}} src={add}/></button>
+                <button onClick={() => setIncognitoMode(!incognitoMode)}><img style={{ width: 20}} src={incognitoMode? incognitoOff: incognitoOn}/></button>
+                <button><img style={{width: 20}} src={ellipsis}/></button>
               </div>
             </Tab>}
              </div>

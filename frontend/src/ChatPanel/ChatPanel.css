@@ -21,10 +21,21 @@
 }
 
 .tab-buttons {
-  padding: 1rem;
+  padding: 0;
   display: block;
   width: 100%;
 
 }
 
+
+.current-chat {
+  background-color: var(--almost-black);
+ 
+}
+
+.tab-image {
+  width: 15;
+  margin-right: 5;
+  align-items: center;
+}
 
