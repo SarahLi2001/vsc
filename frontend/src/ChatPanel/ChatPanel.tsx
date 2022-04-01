@@ -1,4 +1,11 @@
-import React from "react";
+
+import React, { useState } from 'react';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { CodeBlock, dracula } from "react-code-blocks";
+import { sample } from '../components'
+import Button from 'react-bootstrap'
+
+import 'react-tabs/style/react-tabs.css';
 
 import { Chat } from "../Types";
 import "./ChatPanel.css";
@@ -9,27 +16,61 @@ type ChatPanelProps = {
   onChangeActiveChat: (newActiveChat: number) => void;
 };
 
+const IncognitoModeChat: React.FC<{}> = () => {
+  const language ="jsx";
+  const languageDemo = sample["jsx"];
+  return (
+    <CodeBlock
+      text={languageDemo}
+      language={language}
+      showLineNumbers={true}
+      theme={dracula}
+      wrapLines={true}>
+        
+    </CodeBlock>
+    
+  )
+}
+
+
 const ChatPanel: React.FC<ChatPanelProps> = ({
   chats,
   activeChat,
-  onChangeActiveChat,
+  onChangeActiveChat
 }) => {
+  const [incognitoMode, setIncognitoMode] = useState(false)
   return (
-    <div className="chat-panel">
-      {/* <div>CHATS</div> */}
-      {chats.map((chat, index) => {
+    <div className='chat-panel'>
+      <Tabs id='controlled-tabs' selectedTabClassName='bg-white'>
+        <TabList>
+        {chats.map((chat, index) => {
         // TODO: render as tabs
         return (
-          <div key={index} onClick={() => onChangeActiveChat(index)}>
-            {chat.name}
-          </div>
+            <Tab key={index} onClick={() => onChangeActiveChat(index)}>{chat.name}</Tab>
         );
+      }) }
+      {chats.length > 0 &&
+       <Tab>
+          <button onClick={() => setIncognitoMode(!incognitoMode)}><img src='incognito toggle OFF.svg'/></button>
+        </Tab>}
+
+        </TabList>
+      {chats.map(() => {
+        return (
+         <TabPanel>
+          <ActiveChat chat={chats[activeChat]} />
+      </TabPanel>
+        )
       })}
-      {chats.length > 0 && activeChat >= 0 ? (
-        <ActiveChat chat={chats[activeChat]} />
-      ) : (
-        <NoActiveChat />
-      )}
+      {incognitoMode && <TabPanel>
+        <IncognitoModeChat/>
+        </TabPanel>}
+        
+   
+     
+ 
+      </Tabs>
+     
     </div>
   );
 };
@@ -39,9 +80,9 @@ type ActiveChatProps = {
 };
 
 const ActiveChat: React.FC<ActiveChatProps> = ({ chat }) => {
+  console.log(chat.messages)
   return (
-    <div className="active-chat">
-      <div>ACTIVE CHAT: {chat.name}</div>
+    <div className='active-chat'>
       {chat.messages.map((message, index) => {
         if (message.join) {
           return (
