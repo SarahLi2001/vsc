@@ -24,7 +24,7 @@ const Page: React.FC = () => {
   const [activeChat, setActiveChat] = useState<number>(-1); // index of active chat in chats array
 
   useEffect(() => {
-    setSocket(io('https://164.92.89.184:4000'));
+    setSocket(io('http://localhost:4000'));
   }, []);
 
   useEffect(() => {
