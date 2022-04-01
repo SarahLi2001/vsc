@@ -93,8 +93,8 @@ export default TerminalComponent;
 
 const terminalStyle: React.CSSProperties = {
   backgroundColor: '#110c1a',
+  height: 'calc(100% - 60px)',
   minHeight: 'unset',
-  height: '100%',
   borderRadius: 0,
   overflow: 'hidden',
 };
