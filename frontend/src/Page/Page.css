@@ -8,7 +8,6 @@
 
 .left-sidebar {
   display: flex;
-  width: 334px;
   height: 100vh;
   overflow: auto;
   color: var(--lavender);
@@ -34,12 +33,14 @@
 img {
   margin-bottom: 1.3rem;
   width: 100%;
-  color: red;
-  fill: yellow;
 }
 
 img:last-child {
   margin-bottom: 0.5rem;
+}
+
+.right-of-sidebar {
+  width: 334px;
 }
 
 .right-of-sidebar h2,
@@ -67,19 +68,38 @@ img:last-child {
   margin-top: 0.4rem;
 }
 
+button {
+  margin: none;
+  padding: none;
+  background: none;
+  border: none;
+  border-radius: none;
+}
+
 .plus {
+  margin-top: -0.2rem;
+  background-color: none;
+  border: none;
   position: absolute;
   right: 5px;
   top: 2px;
   display: inline-block;
   font-size: 1.6rem;
   font-weight: 100;
+  color: var(--lavender);
+}
+
+.plus:hover {
+  cursor: pointer;
+  color: var(--grayish-purple);
 }
 
 .right-of-sidebar li {
   display: block;
   padding: 0.3rem;
   padding-left: 3rem;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.9rem;
 }
 
 .right-of-sidebar li:hover {
@@ -94,4 +114,45 @@ img:last-child {
 
 .right-of-sidebar li.current-chat {
   background-color: var(--almost-black);
+}
+
+.right-of-sidebar li.new-chat {
+  overflow: hidden;
+  /* background-color: var(--eggplant); */
+  padding: none;
+  white-space: nowrap;
+}
+
+.right-of-sidebar li.new-chat:hover {
+  background-color: var(--purple);
+  cursor: auto;
+}
+
+.right-of-sidebar li.new-chat input {
+  border: 1px solid var(--purple);
+  border-radius: none;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--eggplant);
+  color: var(--grayish-purple);
+  margin: none;
+  margin-left: 0.2rem;
+  padding: 0.2rem;
+  outline: none;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+  font-size: 1rem;
+}
+
+.right-of-sidebar li.new-chat button {
+  color: var(--grayish-purple);
+  font-size: 1.3rem;
+  margin-left: -0.4rem;
+  cursor: pointer;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.right-of-sidebar li.new-chat button:hover {
+  opacity: 0.8;
 }

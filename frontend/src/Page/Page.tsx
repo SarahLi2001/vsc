@@ -91,6 +91,7 @@ const Page: React.FC = () => {
         chats={chats}
         activeChat={activeChat}
         onChangeActiveChat={setActiveChat}
+        openChat={openChat}
       />
       <main className="main-container">
         <ChatPanel

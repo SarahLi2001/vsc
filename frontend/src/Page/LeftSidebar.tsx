@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Chat } from "../Types";
 import pages from "../Icons/pages.svg";
 import search from "../Icons/search.svg";
@@ -12,13 +12,17 @@ type Props = {
   chats: Chat[];
   activeChat: number;
   onChangeActiveChat: (newActiveChat: number) => void;
+  openChat: (chatName: string) => void;
 };
 
 const LeftSidebar: React.FC<Props> = ({
   chats,
   activeChat,
   onChangeActiveChat,
+  openChat,
 }) => {
+  const [isCreatingChat, setIsCreatingChat] = useState(false);
+  const [newChatName, setNewChatName] = useState("");
   const chatNames = chats.map((chat: Chat) => chat.name);
 
   return (
@@ -40,7 +44,9 @@ const LeftSidebar: React.FC<Props> = ({
         <h2>Explorer</h2>
         <h3>
           <span>&#709;</span> Chatrooms
-          <div className="plus">&#43;</div>
+          <button className="plus" onClick={() => setIsCreatingChat(true)}>
+            &#43;
+          </button>
         </h3>
         <ul className="sidebar-chats-list">
           {!chatNames.length && (
@@ -56,6 +62,29 @@ const LeftSidebar: React.FC<Props> = ({
               {chatName}
             </li>
           ))}
+          {isCreatingChat && (
+            <li className="new-chat">
+              {newChatName.length > 0 && !newChatName.includes(" ") ? (
+                <button
+                  onClick={() => {
+                    setNewChatName("");
+                    setIsCreatingChat(false);
+                    openChat(newChatName);
+                  }}
+                >
+                  +
+                </button>
+              ) : (
+                <>&gt;</>
+              )}
+              <input
+                autoFocus={true}
+                type="text"
+                placeholder={newChatName}
+                onChange={(e) => setNewChatName(e.currentTarget.value)}
+              />
+            </li>
+          )}
         </ul>
       </div>
     </div>
