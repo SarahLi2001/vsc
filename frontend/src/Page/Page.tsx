@@ -6,10 +6,20 @@ import { Chat, Message } from "../Types";
 import ChatPanel from "../ChatPanel/ChatPanel";
 import TerminalComponent from "../Terminal/Terminal";
 import LeftSidebar from "./LeftSidebar";
+import { codeNames } from "../CodeNames";
+
+const generateCodeName = () => {
+  return (
+    codeNames.firstNames[
+      Math.floor(Math.random() * codeNames.firstNames.length)
+    ] +
+    codeNames.lastNames[Math.floor(Math.random() * codeNames.lastNames.length)]
+  );
+};
 
 const Page: React.FC = () => {
   const [socket, setSocket] = useState<any>();
-  const [username, setUsername] = useState<string>("anonymous");
+  const [username, setUsername] = useState<string>(generateCodeName());
   const [chats, setChats] = useState<Chat[]>([]);
   const [activeChat, setActiveChat] = useState<number>(-1); // index of active chat in chats array
 

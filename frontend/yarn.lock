@@ -1857,7 +1857,7 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.4.tgz#cd667bcfdd025213aafb7ca5915a932590acdcdc"
   integrity sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==
 
-"@types/react-dom@*", "@types/react-dom@^17.0.9":
+"@types/react-dom@*", "@types/react-dom@^17.0.14", "@types/react-dom@^17.0.9":
   version "17.0.14"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.14.tgz#c8f917156b652ddf807711f5becbd2ab018dea9f"
   integrity sha512-H03xwEP1oXmSfl3iobtmQ/2dHF5aBHr8aUMwyGZya6OW45G+xtdzmq6HkncefiBt5JU8DVyaWl/nWZbjZCnzAQ==
@@ -7101,6 +7101,14 @@ react-dom@^18.0.0:
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.21.0"
+
+"react-dom@npm:@devtails/react-dom@18.2.1":
+  version "18.2.1"
+  resolved "https://registry.yarnpkg.com/@devtails/react-dom/-/react-dom-18.2.1.tgz#4a745505775e14c6abf4288ca0cd456d97d48a1d"
+  integrity sha512-o557pFvESj6IIuNBVnI6IM+mhOWzjEBc5y+QyEdcb6iv0ZrMxmU/Rm2nG5zl0W3mdMA4iPzCLoLIiGYXp7EYKg==
+  dependencies:
+    "@types/react-dom" "^17.0.14"
+    react-dom "^18.0.0"
 
 react-error-overlay@^6.0.10:
   version "6.0.10"

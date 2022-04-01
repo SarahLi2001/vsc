@@ -1,6 +1,6 @@
-import React from "react";
-import Terminal from "react-console-emulator";
-import "./Terminal.css";
+import React from 'react';
+import Terminal from 'react-console-emulator';
+import './Terminal.css';
 
 type TerminalProps = {
   username: string;
@@ -21,8 +21,8 @@ const TerminalComponent: React.FC<TerminalProps> = ({
 }) => {
   const commands = {
     chat: {
-      description: "Open a chat tab",
-      usage: "chat <chat-name>",
+      description: 'Open a chat tab',
+      usage: 'chat <chat-name>',
       fn: (...args: string[]) => {
         if (args.length === 1) {
           const existingChatIndex = existingChats.findIndex((chat) => {
@@ -36,34 +36,44 @@ const TerminalComponent: React.FC<TerminalProps> = ({
             return `${args[0]} chat opened!`;
           }
         } else {
-          return "chat name must not contain spaces";
+          return 'chat name must not contain spaces';
         }
       },
     },
     send: {
-      description: "Send a message to the currently opened chat",
-      usage: "send <message-content>",
+      description: 'Send a message to the currently opened chat',
+      usage: 'send <message-content>',
       fn: (...args: string[]) => {
-        onMessageSend(args.join(" "));
-        return "message sent!";
+        onMessageSend(args.join(' '));
+        return 'message sent!';
       },
     },
     username: {
-      description: "Change your username",
-      usage: "username <new-username>",
+      description: 'Change your username',
+      usage: 'username <new-username>',
       fn: (...args: string[]) => {
         if (args.length === 1) {
           onUsernameChange(args[0]);
           return `username changed to ${args[0]}!`;
         } else {
-          return "username must not contain spaces";
+          return 'username must not contain spaces';
         }
       },
     },
   };
 
   return (
-    <div className="terminal">
+    <div className='terminal-component'>
+      <div className='terminal-tabs'>
+        <div className='terminal-tab'>PROBLEMS</div>
+        <div className='terminal-tab'>OUTPUT</div>
+        <div className='terminal-tab'>DEBUG CONSOLE</div>
+        <div className='terminal-tab terminal-tab--selected'>TERMINAL</div>
+        <div className='terminal-searchbar'>
+          Search (e.g. text, **/*.ts, !**/node_modules/**)
+        </div>
+        <div className='terminal-hideicon'></div>
+      </div>
       <Terminal
         commands={commands}
         welcomeMessage={
@@ -71,9 +81,24 @@ const TerminalComponent: React.FC<TerminalProps> = ({
         }
         promptLabel={`${username}@vsc:~$`}
         autoFocus={true}
+        style={terminalStyle}
+        contentStyle={terminalContentStyle}
+        styleEchoBack={'fullInherit'}
       />
     </div>
   );
 };
 
 export default TerminalComponent;
+
+const terminalStyle: React.CSSProperties = {
+  backgroundColor: '#110c1a',
+  minHeight: 'unset',
+  height: '100%',
+  borderRadius: 0,
+  overflow: 'hidden',
+};
+
+const terminalContentStyle: React.CSSProperties = {
+  color: '#AE7CFF',
+};
