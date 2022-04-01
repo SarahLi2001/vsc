@@ -7,7 +7,9 @@
 }
 
 .main-container {
+  background-color: var(--dark-purple);
   width: 100%;
+  /* color: yellow; */
 }
 
 .left-sidebar {

@@ -8,4 +8,6 @@ export type Message = {
   text: string;
   join?: boolean;
   usernameChange?: boolean;
+  color?: string;
+  declarationType?: string;
 };
