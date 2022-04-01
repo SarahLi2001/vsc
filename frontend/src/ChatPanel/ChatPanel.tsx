@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { CodeBlock, dracula } from "react-code-blocks";
@@ -6,8 +7,8 @@ import Button from 'react-bootstrap'
 
 import 'react-tabs/style/react-tabs.css';
 
-
-import { Chat } from '../Types';
+import { Chat } from "../Types";
+import "./ChatPanel.css";
 
 type ChatPanelProps = {
   chats: Chat[];
@@ -86,7 +87,9 @@ const ActiveChat: React.FC<ActiveChatProps> = ({ chat }) => {
         if (message.join) {
           return (
             <div key={index}>
-              {message.username} has joined {chat.name}
+              const{" "}
+              <span className="username-on-connect">{message.username}</span> =
+              () =&gt; "successfully connected to {chat.name}" ;
             </div>
           );
         } else if (message.usernameChange) {
@@ -108,7 +111,7 @@ const ActiveChat: React.FC<ActiveChatProps> = ({ chat }) => {
 };
 
 const NoActiveChat: React.FC<{}> = () => {
-  return <div className='no-active-chat'></div>;
+  return <div className="no-active-chat"></div>;
 };
 
 export default ChatPanel;

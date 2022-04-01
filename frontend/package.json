@@ -21,7 +21,7 @@
     "react-bootstrap": "^2.2.2",
     "react-code-blocks": "^0.0.9-0",
     "react-console-emulator": "^5.0.1",
-    "react-dom": "^18.0.0",
+    "react-dom": "npm:@devtails/react-dom@18.2.1",
     "react-scripts": "5.0.0",
     "react-tabs": "^4.2.0",
     "socket.io-client": "^4.4.1",

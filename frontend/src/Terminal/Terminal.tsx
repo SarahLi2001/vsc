@@ -1,5 +1,6 @@
 import React from 'react';
 import Terminal from 'react-console-emulator';
+import './Terminal.css';
 
 type TerminalProps = {
   username: string;
@@ -62,7 +63,17 @@ const TerminalComponent: React.FC<TerminalProps> = ({
   };
 
   return (
-    <div className='terminal'>
+    <div className='terminal-component'>
+      <div className='terminal-tabs'>
+        <div className='terminal-tab'>PROBLEMS</div>
+        <div className='terminal-tab'>OUTPUT</div>
+        <div className='terminal-tab'>DEBUG CONSOLE</div>
+        <div className='terminal-tab terminal-tab--selected'>TERMINAL</div>
+        <div className='terminal-searchbar'>
+          Search (e.g. text, **/*.ts, !**/node_modules/**)
+        </div>
+        <div className='terminal-hideicon'></div>
+      </div>
       <Terminal
         commands={commands}
         welcomeMessage={
@@ -70,9 +81,24 @@ const TerminalComponent: React.FC<TerminalProps> = ({
         }
         promptLabel={`${username}@vsc:~$`}
         autoFocus={true}
+        style={terminalStyle}
+        contentStyle={terminalContentStyle}
+        styleEchoBack={'fullInherit'}
       />
     </div>
   );
 };
 
 export default TerminalComponent;
+
+const terminalStyle: React.CSSProperties = {
+  backgroundColor: '#110c1a',
+  height: 'calc(100% - 60px)',
+  minHeight: 'unset',
+  borderRadius: 0,
+  overflow: 'hidden',
+};
+
+const terminalContentStyle: React.CSSProperties = {
+  color: '#AE7CFF',
+};
