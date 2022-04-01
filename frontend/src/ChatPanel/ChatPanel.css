@@ -14,3 +14,17 @@
   font-family: 'Courier New', source-code-pro, Menlo, Monaco, Consolas;
   font-weight: bold;
 }
+
+.tabs-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.tab-buttons {
+  padding: 1rem;
+  display: block;
+  width: 100%;
+
+}
+
+

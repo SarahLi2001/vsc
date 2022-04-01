@@ -3,6 +3,11 @@ import React, { useState } from 'react';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { CodeBlock, dracula } from "react-code-blocks";
 import { sample } from '../components'
+import incognitoOn from "../Icons/incognito toggle ON.svg";
+import incognitoOff from "../Icons/incognito toggle OFF.svg";
+
+import ellipsis from "../Icons/ellipsis-regular (1) 1.svg";
+import add from "../Icons/add.svg";
 import Button from 'react-bootstrap'
 
 import 'react-tabs/style/react-tabs.css';
@@ -43,32 +48,39 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
     <div className='chat-panel'>
       <Tabs id='controlled-tabs' selectedTabClassName='bg-white'>
         <TabList>
-        {chats.map((chat, index) => {
-        // TODO: render as tabs
-        return (
-            <Tab key={index} onClick={() => onChangeActiveChat(index)}>{chat.name}</Tab>
-        );
-      }) }
-      {chats.length > 0 &&
-       <Tab>
-          <button onClick={() => setIncognitoMode(!incognitoMode)}><img src='incognito toggle OFF.svg'/></button>
-        </Tab>}
+          <div className='tabs-container'>
+            <div>
+            {chats.map((chat, index) => {
+            // TODO: render as tabs
+            return (
+                <Tab key={index} onClick={() => onChangeActiveChat(index)}>{chat.name}</Tab>
+            );
+          }) }
+            </div>
+             <div>
+             {chats.length > 0 &&
+            <Tab>
+              <div className='tab-buttons'>
+                <button><img style={{width: 25}} src={add}/></button>
+                <button onClick={() => setIncognitoMode(!incognitoMode)}><img style={{width: 25}} src={incognitoMode? incognitoOff: incognitoOn}/></button>
+                <button><img style={{width: 25}} src={ellipsis}/></button>
+              </div>
+            </Tab>}
+             </div>
+          </div>
+       
+      
 
         </TabList>
       {chats.map(() => {
         return (
          <TabPanel>
-          <ActiveChat chat={chats[activeChat]} />
+          {incognitoMode? <ActiveChat chat={chats[activeChat]} /> :  <IncognitoModeChat/>}
       </TabPanel>
         )
       })}
-      {incognitoMode && <TabPanel>
-        <IncognitoModeChat/>
-        </TabPanel>}
+  
         
-   
-     
- 
       </Tabs>
      
     </div>
