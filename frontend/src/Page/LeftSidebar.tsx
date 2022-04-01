@@ -7,6 +7,8 @@ import bug from "../Icons/bug.svg";
 import blocks from "../Icons/blocks.svg";
 import profile from "../Icons/profile.svg";
 import gear from "../Icons/gear-regular-1.svg";
+import downCaret from "../Icons/down-caret.svg";
+import add from "../Icons/add-sidebar.svg";
 
 type Props = {
   chats: Chat[];
@@ -43,9 +45,9 @@ const LeftSidebar: React.FC<Props> = ({
       <div className="right-of-sidebar">
         <h2>Explorer</h2>
         <h3>
-          <span>&#709;</span> Chatrooms
+          <img src={downCaret} id="down-caret" /> Chatrooms
           <button className="plus" onClick={() => setIsCreatingChat(true)}>
-            &#43;
+            <img src={add} id="add-btn" />
           </button>
         </h3>
         <ul className="sidebar-chats-list">

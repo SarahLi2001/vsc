@@ -53,7 +53,7 @@ img:last-child {
 }
 
 .right-of-sidebar h2 {
-  padding: 1.1rem;
+  padding: 1.4rem;
   padding-left: 2.7rem;
   color: var(--grayish-purple);
   margin-bottom: 0;
@@ -63,13 +63,14 @@ img:last-child {
   display: block;
   position: relative;
   font-weight: bold;
-  padding: 0.3rem;
-  padding-left: 1.5rem;
+  padding: 0.3rem 0.3rem 0 1.5rem;
+  margin-top: -0.4rem;
 }
 
-.right-of-sidebar h3 span {
-  display: inline-block;
-  margin-top: 0.4rem;
+#down-caret {
+  padding-top: 1rem;
+  width: 1.1rem;
+  margin-top: 0.1rem;
 }
 
 button {
@@ -81,7 +82,7 @@ button {
 }
 
 .plus {
-  margin-top: -0.2rem;
+  margin-top: 0.85rem;
   background-color: none;
   border: none;
   position: absolute;
@@ -95,12 +96,20 @@ button {
 
 .plus:hover {
   cursor: pointer;
-  color: var(--grayish-purple);
+  opacity: 0.8;
+}
+
+#add-btn {
+  width: 1.2rem;
+}
+
+.right-of-sidebar ul {
+  margin-top: -0.4rem;
 }
 
 .right-of-sidebar li {
   display: block;
-  padding: 0.3rem;
+  padding: 0.5rem 0.3rem;
   padding-left: 3rem;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 0.9rem;
