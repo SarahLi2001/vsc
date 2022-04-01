@@ -1,24 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import io from 'socket.io-client';
+import React, { useState, useEffect } from "react";
+import io from "socket.io-client";
+import "./Page.css";
 
-import { Chat, Message } from '../Types';
-import ChatPanel from '../ChatPanel/ChatPanel';
-import TerminalComponent from '../Terminal/Terminal';
+import { Chat, Message } from "../Types";
+import ChatPanel from "../ChatPanel/ChatPanel";
+import TerminalComponent from "../Terminal/Terminal";
 
 const Page: React.FC = () => {
   const [socket, setSocket] = useState<any>();
-  const [username, setUsername] = useState<string>('anonymous');
+  const [username, setUsername] = useState<string>("anonymous");
   const [chats, setChats] = useState<Chat[]>([]);
   const [activeChat, setActiveChat] = useState<number>(-1); // index of active chat in chats array
 
   useEffect(() => {
-    setSocket(io('http://localhost:4000'));
+    setSocket(io("http://localhost:4000"));
   }, []);
 
   useEffect(() => {
     if (!socket) return;
 
-    socket.on('messageReceipt', (chatName: string, message: Message) => {
+    socket.on("messageReceipt", (chatName: string, message: Message) => {
       console.log(chatName);
       setChats((prevChats) => {
         const newChats = [...prevChats];
@@ -42,13 +43,13 @@ const Page: React.FC = () => {
       return [...prevChats, newChat];
     });
     setActiveChat((prevIndex) => chats.length);
-    socket.emit('openChat', newChat.name);
+    socket.emit("openChat", newChat.name);
     const joinMessage: Message = {
       username: username,
-      text: '',
+      text: "",
       join: true,
     };
-    socket.emit('messageSent', newChat.name, joinMessage);
+    socket.emit("messageSent", newChat.name, joinMessage);
   };
 
   const sendMessage = (messageText: string) => {
@@ -57,7 +58,7 @@ const Page: React.FC = () => {
         username: username,
         text: messageText,
       };
-      socket.emit('messageSent', chats[activeChat].name, newMessage);
+      socket.emit("messageSent", chats[activeChat].name, newMessage);
     }
   };
 
@@ -68,13 +69,13 @@ const Page: React.FC = () => {
         text: chosenName,
         usernameChange: true,
       };
-      socket.emit('messageSent', chat.name, newMessage);
+      socket.emit("messageSent", chat.name, newMessage);
     });
     setUsername(chosenName);
   };
 
   return (
-    <div className='chat-panel'>
+    <div className="page">
       <ChatPanel
         chats={chats}
         activeChat={activeChat}
