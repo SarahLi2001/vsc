@@ -11,27 +11,39 @@ const io = new Server(server, {
 });
 
 app.get("/", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "frontend", "index.html"));
+  // res.sendFile(path.resolve(__dirname, "frontend/public", "index.html"));
+  res.send("yo yo");
 });
 const PORT = process.env.PORT || 4000;
-server.listen(PORT, () => {
-  console.log(`listening on ${PORT}`);
-});
-
-io.on("connect_error", (err) => {
-  console.log(`connect_error due to ${err.message}`);
-});
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
-  socket.join("chat");
-  socket.on("message sent", (message) => {
-    // to all connected clients in the "news" room
-    io.to("chat").emit(message);
+  console.log("user connected");
+
+  socket.on("messageSent", (chat) => {
+    io.to(chat.name).emit("messageReceipt", chat);
   });
-  socket.on("test", (msg) => console.log(msg));
-  // socket.emit();
+
+  socket.on("createChat", (chat, oldChat, chatsLength) => {
+    if (oldChat) socket.leave(oldChat);
+    socket.join(chat.name);
+    io.to(chat.name).emit("chatCreated", chat, chatsLength);
+  });
+
+  socket.on("changeChat", (chatName, chatIndex, oldChat) => {
+    socket.leave(oldChat);
+    socket.join(chatName);
+    io.to(chatName).emit("chatChange", chatIndex);
+  });
+
+  socket.on("changeUsername", (username) => {
+    io.emit("usernameChange", username);
+  });
+
   socket.on("disconnect", () => {
     console.log("user disconnected");
   });
+});
+
+server.listen(PORT, () => {
+  console.log(`listening on ${PORT}`);
 });

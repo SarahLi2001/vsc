@@ -5,63 +5,89 @@ import { Chat, Message } from "../Types";
 import ChatPanel from "../ChatPanel/ChatPanel";
 import TerminalComponent from "../Terminal/Terminal";
 
-const Page: React.FC<{}> = ({}) => {
-  const socket = io("http://localhost:4000");
-
+const Page: React.FC = () => {
+  const [socket, setSocket] = useState<any>();
   const [username, setUsername] = useState<string>("anonymous");
   const [chats, setChats] = useState<Chat[]>([]);
   const [activeChat, setActiveChat] = useState<number>(-1); // index of active chat in chats array
 
   useEffect(() => {
-    socket.emit("test", "HELLO WORLD");
+    setSocket(io("http://localhost:4000"));
   }, []);
 
+  useEffect(() => {
+    if (!socket) return;
+    socket.on("messageReceipt", (chat: Chat) => {
+      console.log("chat: ", chat);
+
+      setChats((prevChats) => [
+        ...prevChats.map((thisChat) => {
+          return thisChat.name === chat.name ? chat : thisChat;
+        }),
+      ]);
+    });
+
+    socket.on("chatCreated", (chat: Chat, chatLength: number) => {
+      setChats((prevChats) => {
+        return [...prevChats, chat];
+      });
+      setActiveChat((prevIndex) => chatLength);
+    });
+
+    socket.on("chatChange", (chatIndex: number) => {
+      setActiveChat((prevIndex) => chatIndex);
+    });
+
+    socket.on("usernameChange", (username: string) => {
+      setUsername((prevUsername) => username);
+    });
+  }, [socket]);
+
   const createChat = (chatName: string) => {
-    const tempChats = [...chats];
-    const newChat = {
+    const newChat: Chat = {
       name: chatName,
-      messages: [],
+      messages: [{ username, text: `let newChat = "${chatName}"` }],
     };
-    tempChats.push(newChat);
-    setChats(tempChats);
-    setActiveChat(tempChats.indexOf(newChat));
+
+    let oldChat;
+
+    socket.emit(
+      "createChat",
+      newChat,
+      (oldChat = activeChat > -1 && chats[activeChat].name),
+      chats.length
+    );
   };
 
-  const applyMessage = (chatIndex: number, message: Message) => {
-    const tempChats = [...chats];
-    tempChats[chatIndex].messages.push(message);
-    setChats(tempChats);
+  const changeChat = (chatName: string) => {
+    const chatIndex = chats.findIndex((chat) => chat.name === chatName);
+
+    let oldChat;
+    socket.emit(
+      "changeChat",
+      chatName,
+      chatIndex,
+      (oldChat = chats[activeChat].name)
+    );
   };
 
   const sendMessage = (messageText: string) => {
-    if (activeChat >= 0) {
-      const newMessage = {
-        username: username,
-        text: messageText,
-      };
-      applyMessage(activeChat, newMessage);
-      // TODO: send to server
-      const messageToServer = {
-        chat: chats[activeChat].name,
-        username: username,
-        message: messageText,
-      };
-    }
+    const newMessage: Message = {
+      username: username,
+      text: messageText,
+    };
+
+    let chatToUpdate: Chat = chats[activeChat];
+    chatToUpdate.messages.push(newMessage);
+    socket.emit("messageSent", chatToUpdate);
   };
 
-  const receiveMessage = (chatName: string, message: Message) => {
-    // TODO: call when message received from server
-    const chatIndex = chats.findIndex((chat) => {
-      return chat.name === chatName;
-    });
-    if (chatIndex >= 0) {
-      applyMessage(chatIndex, message);
-    }
+  const changeUsername = (chosenName: string) => {
+    setUsername(chosenName);
   };
 
   return (
     <div className="chat-panel">
-      <></>
       <ChatPanel
         chats={chats}
         activeChat={activeChat}
@@ -69,9 +95,11 @@ const Page: React.FC<{}> = ({}) => {
       />
       <TerminalComponent
         username={username}
-        onChatOpen={createChat}
+        createChat={createChat}
+        changeChat={changeChat}
         onMessageSend={sendMessage}
-        onUsernameChange={setUsername}
+        onUsernameChange={changeUsername}
+        existingChats={chats.map((chat) => chat.name)}
       />
     </div>
   );
