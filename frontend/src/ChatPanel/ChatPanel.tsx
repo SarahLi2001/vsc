@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { Chat } from "../Types";
+import { Chat } from '../Types';
 
 type ChatPanelProps = {
   chats: Chat[];
@@ -14,7 +14,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
   onChangeActiveChat,
 }) => {
   return (
-    <div className="chat-panel">
+    <div className='chat-panel'>
       <div>CHATS</div>
       {chats.map((chat, index) => {
         // TODO: render as tabs
@@ -39,21 +39,35 @@ type ActiveChatProps = {
 
 const ActiveChat: React.FC<ActiveChatProps> = ({ chat }) => {
   return (
-    <div className="active-chat">
+    <div className='active-chat'>
       <div>ACTIVE CHAT: {chat.name}</div>
       {chat.messages.map((message, index) => {
-        return (
-          <div key={index}>
-            {message.username}: {message.text}
-          </div>
-        );
+        if (message.join) {
+          return (
+            <div key={index}>
+              {message.username} has joined {chat.name}
+            </div>
+          );
+        } else if (message.usernameChange) {
+          return (
+            <div key={index}>
+              {message.username} has changed their username to {message.text}
+            </div>
+          );
+        } else {
+          return (
+            <div key={index}>
+              {message.username}: {message.text}
+            </div>
+          );
+        }
       })}
     </div>
   );
 };
 
 const NoActiveChat: React.FC<{}> = () => {
-  return <div className="no-active-chat"></div>;
+  return <div className='no-active-chat'></div>;
 };
 
 export default ChatPanel;
