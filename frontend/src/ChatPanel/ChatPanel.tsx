@@ -1,16 +1,15 @@
-
-import React, { useState } from 'react';
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import React, { useEffect, useState } from "react";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { CodeBlock, dracula } from "react-code-blocks";
-import { sample } from '../components'
+import { sample } from "../components";
 import incognitoOn from "../Icons/incognito toggle ON.svg";
 import incognitoOff from "../Icons/incognito toggle OFF.svg";
 
 import ellipsis from "../Icons/ellipsis-regular (1) 1.svg";
 import add from "../Icons/add.svg";
-import Button from 'react-bootstrap'
+import Button from "react-bootstrap";
 
-import 'react-tabs/style/react-tabs.css';
+import "react-tabs/style/react-tabs.css";
 
 import { Chat } from "../Types";
 import "./ChatPanel.css";
@@ -22,7 +21,7 @@ type ChatPanelProps = {
 };
 
 const IncognitoModeChat: React.FC<{}> = () => {
-  const language ="jsx";
+  const language = "jsx";
   const languageDemo = sample["jsx"];
   return (
     <CodeBlock
@@ -30,59 +29,66 @@ const IncognitoModeChat: React.FC<{}> = () => {
       language={language}
       showLineNumbers={true}
       theme={dracula}
-      wrapLines={true}>
-        
-    </CodeBlock>
-    
-  )
-}
-
+      wrapLines={true}
+    ></CodeBlock>
+  );
+};
 
 const ChatPanel: React.FC<ChatPanelProps> = ({
   chats,
   activeChat,
-  onChangeActiveChat
+  onChangeActiveChat,
 }) => {
-  const [incognitoMode, setIncognitoMode] = useState(false)
+  const [incognitoMode, setIncognitoMode] = useState(false);
   return (
-    <div className='chat-panel'>
-      <Tabs id='controlled-tabs' selectedTabClassName='bg-white'>
+    <div className="chat-panel">
+      <Tabs id="controlled-tabs" selectedTabClassName="bg-white">
         <TabList>
-          <div className='tabs-container'>
+          <div className="tabs-container">
             <div>
-            {chats.map((chat, index) => {
-            // TODO: render as tabs
-            return (
-                <Tab key={index} onClick={() => onChangeActiveChat(index)}>{chat.name}</Tab>
-            );
-          }) }
+              {chats.map((chat, index) => {
+                // TODO: render as tabs
+                return (
+                  <Tab key={index} onClick={() => onChangeActiveChat(index)}>
+                    {chat.name}
+                  </Tab>
+                );
+              })}
             </div>
-             <div>
-             {chats.length > 0 &&
-            <Tab>
-              <div className='tab-buttons'>
-                <button><img style={{width: 25}} src={add}/></button>
-                <button onClick={() => setIncognitoMode(!incognitoMode)}><img style={{width: 25}} src={incognitoMode? incognitoOff: incognitoOn}/></button>
-                <button><img style={{width: 25}} src={ellipsis}/></button>
-              </div>
-            </Tab>}
-             </div>
+            <div>
+              {chats.length > 0 && (
+                <Tab>
+                  <div className="tab-buttons">
+                    <button>
+                      <img style={{ width: 25 }} src={add} />
+                    </button>
+                    <button onClick={() => setIncognitoMode(!incognitoMode)}>
+                      <img
+                        style={{ width: 25 }}
+                        src={incognitoMode ? incognitoOff : incognitoOn}
+                      />
+                    </button>
+                    <button>
+                      <img style={{ width: 25 }} src={ellipsis} />
+                    </button>
+                  </div>
+                </Tab>
+              )}
+            </div>
           </div>
-       
-      
-
         </TabList>
-      {chats.map(() => {
-        return (
-         <TabPanel>
-          {incognitoMode? <ActiveChat chat={chats[activeChat]} /> :  <IncognitoModeChat/>}
-      </TabPanel>
-        )
-      })}
-  
-        
+        {chats.map(() => {
+          return (
+            <TabPanel>
+              {incognitoMode ? (
+                <ActiveChat chat={chats[activeChat]} />
+              ) : (
+                <IncognitoModeChat />
+              )}
+            </TabPanel>
+          );
+        })}
       </Tabs>
-     
     </div>
   );
 };
@@ -92,9 +98,8 @@ type ActiveChatProps = {
 };
 
 const ActiveChat: React.FC<ActiveChatProps> = ({ chat }) => {
-  console.log(chat.messages)
   return (
-    <div className='active-chat'>
+    <div className="active-chat">
       {chat.messages.map((message, index) => {
         if (message.join) {
           return (
@@ -111,9 +116,41 @@ const ActiveChat: React.FC<ActiveChatProps> = ({ chat }) => {
             </div>
           );
         } else {
+          console.log(message.color);
+          const { color, declarationType } = message;
+
           return (
             <div key={index}>
-              {message.username}: {message.text}
+              {declarationType === "const" && (
+                <>
+                  const{" "}
+                  <span className={`message-sender-color-${color}`}>
+                    {message.username}
+                  </span>{" "}
+                  = '{message.text}';
+                </>
+              )}
+
+              {declarationType === "let" && (
+                <>
+                  let{" "}
+                  <span className={`message-sender-color-${color}`}>
+                    {message.username}
+                  </span>{" "}
+                  = '{message.text}';
+                </>
+              )}
+
+              {/* todo FIX */}
+              {declarationType === "func" && (
+                <>
+                  const{" "}
+                  <span className={`message-sender-color-${color}`}>
+                    {message.username}
+                  </span>{" "}
+                  = '{message.text}';
+                </>
+              )}
             </div>
           );
         }

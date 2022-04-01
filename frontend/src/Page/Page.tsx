@@ -63,11 +63,17 @@ const Page: React.FC = () => {
     socket.emit("messageSent", newChat.name, joinMessage);
   };
 
-  const sendMessage = (messageText: string) => {
+  const sendMessage = (
+    messageText: string,
+    color?: string,
+    declarationType?: string
+  ) => {
     if (activeChat >= 0) {
       const newMessage = {
         username: username,
         text: messageText,
+        color,
+        declarationType,
       };
       socket.emit("messageSent", chats[activeChat].name, newMessage);
     }
