@@ -1,4 +1,97 @@
 .page {
+  display: flex;
+  flex-direction: row;
+
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.left-sidebar {
+  display: flex;
+  width: 334px;
+  height: 100vh;
+  overflow: auto;
+  color: var(--lavender);
+}
+
+.left-of-sidebar {
+  background-color: var(--dark-purple);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 70px;
+  height: 100vh;
+}
+
+.top-icons,
+.bottom-icons {
+  padding: 1rem;
+  display: block;
+  min-height: 50px;
+  width: 100%;
+}
+
+img {
+  margin-bottom: 1.3rem;
+  width: 100%;
+  color: red;
+  fill: yellow;
+}
+
+img:last-child {
+  margin-bottom: 0.5rem;
+}
+
+.right-of-sidebar h2,
+.right-of-sidebar h3 {
+  text-transform: uppercase;
+}
+
+.right-of-sidebar h2 {
+  padding: 1.1rem;
+  padding-left: 2.7rem;
+  color: var(--grayish-purple);
+  margin-bottom: 0;
+}
+
+.right-of-sidebar h3 {
+  display: block;
+  position: relative;
+  font-weight: bold;
+  padding: 0.3rem;
+  padding-left: 1.5rem;
+}
+
+.right-of-sidebar h3 span {
+  display: inline-block;
+  margin-top: 0.4rem;
+}
+
+.plus {
+  position: absolute;
+  right: 5px;
+  top: 2px;
+  display: inline-block;
+  font-size: 1.6rem;
+  font-weight: 100;
+}
+
+.right-of-sidebar li {
+  display: block;
+  padding: 0.3rem;
+  padding-left: 3rem;
+}
+
+.right-of-sidebar li:hover {
+  cursor: pointer;
+  background-color: var(--dark-purple);
+}
+
+.right-of-sidebar li.non-selectable-tab:hover {
+  cursor: auto;
+  background-color: var(--purple);
+}
+
+.right-of-sidebar li.current-chat {
+  background-color: var(--almost-black);
 }

@@ -5,6 +5,7 @@ import "./Page.css";
 import { Chat, Message } from "../Types";
 import ChatPanel from "../ChatPanel/ChatPanel";
 import TerminalComponent from "../Terminal/Terminal";
+import LeftSidebar from "./LeftSidebar";
 
 const Page: React.FC = () => {
   const [socket, setSocket] = useState<any>();
@@ -76,19 +77,26 @@ const Page: React.FC = () => {
 
   return (
     <div className="page">
-      <ChatPanel
+      <LeftSidebar
         chats={chats}
         activeChat={activeChat}
         onChangeActiveChat={setActiveChat}
       />
-      <TerminalComponent
-        username={username}
-        onChatChange={setActiveChat}
-        onChatOpen={openChat}
-        onMessageSend={sendMessage}
-        onUsernameChange={changeUsername}
-        existingChats={chats.map((chat) => chat.name)}
-      />
+      <main className="main-container">
+        <ChatPanel
+          chats={chats}
+          activeChat={activeChat}
+          onChangeActiveChat={setActiveChat}
+        />
+        <TerminalComponent
+          username={username}
+          onChatChange={setActiveChat}
+          onChatOpen={openChat}
+          onMessageSend={sendMessage}
+          onUsernameChange={changeUsername}
+          existingChats={chats.map((chat) => chat.name)}
+        />
+      </main>
     </div>
   );
 };

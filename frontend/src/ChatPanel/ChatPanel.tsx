@@ -16,7 +16,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({
 }) => {
   return (
     <div className="chat-panel">
-      <div>CHATS</div>
+      {/* <div>CHATS</div> */}
       {chats.map((chat, index) => {
         // TODO: render as tabs
         return (
