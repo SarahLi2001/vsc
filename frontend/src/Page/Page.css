@@ -1,7 +1,7 @@
 .page {
   display: flex;
   flex-direction: row;
-  height: 100%;
+  height: calc(100% - 44px);
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
@@ -13,7 +13,7 @@
 .left-sidebar {
   display: flex;
   width: 334px;
-  height: 100vh;
+  height: 100%;
   overflow: auto;
   color: var(--lavender);
 }
@@ -24,7 +24,7 @@
   flex-direction: column;
   justify-content: space-between;
   width: 70px;
-  height: 100vh;
+  height: 100%;
 }
 
 .top-icons,

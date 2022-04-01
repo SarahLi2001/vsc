@@ -1,0 +1,45 @@
+.bottom-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  height: 44px;
+  background-color: #022014;
+
+  /* text */
+  /* font-family: 'Inter'; */
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #00dd79;
+}
+
+.bottom-bar__left-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-left: 20px;
+}
+
+.bottom-bar__right-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
+
+.bottom-bar__main {
+  margin: auto;
+  margin-right: 60px;
+}
+
+.bottom-bar__text {
+  margin: auto;
+  margin-right: 25px;
+}
+
+.bottom-bar__icon {
+  margin: auto;
+  margin-right: 12px;
+}
