@@ -2,8 +2,12 @@
   display: flex;
   flex-direction: row;
   height: 100%;
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.main-container {
+  width: 100%;
 }
 
 .left-sidebar {
