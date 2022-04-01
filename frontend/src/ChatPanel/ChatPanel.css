@@ -1,9 +1,9 @@
 .chat-panel {
-  height: 70vh;
+  height: 70%;
   padding: 12px;
   color: white;
   font-size: 1rem;
-  font-family: "Courier New", source-code-pro, Menlo, Monaco, Consolas;
+  font-family: 'Courier New', source-code-pro, Menlo, Monaco, Consolas;
   text-transform: lowercase;
   font-weight: bold;
 }
@@ -11,6 +11,6 @@
 .username-on-connect {
   color: red;
   font-size: 1rem;
-  font-family: "Courier New", source-code-pro, Menlo, Monaco, Consolas;
+  font-family: 'Courier New', source-code-pro, Menlo, Monaco, Consolas;
   font-weight: bold;
 }

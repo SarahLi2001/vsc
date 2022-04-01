@@ -2,12 +2,14 @@ html,
 main,
 body {
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .app {
   display: block;
   width: 100%;
-  height: 100vh; /* not sure how to get this to work as 100% instead of vh */
+  height: 100%;
   background-color: var(--purple);
   color: white;
 }

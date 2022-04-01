@@ -1,4 +1,5 @@
 .page {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  height: 100%;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
